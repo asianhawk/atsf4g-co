@@ -1,0 +1,139 @@
+syntax = "proto3";
+
+// 日志数据结构定义
+
+// import "com.const.proto";
+// import "com.struct.proto";
+
+package hello.log;
+
+/* 注意 请不要使用数组和嵌套结构
+ * 因为可能存在logstash一些三方插件不支持
+ * type time openid字段默认在json代码插入，这不用再定义。
+ * 生成出来json并不是按照protobuf字段定义顺序，如果需要顺序，按字符开头排序
+ */
+
+
+// 用户注册
+message LOGRegister {
+    uint32 login_pd      = 1; // 登入server_pd
+    uint32 platform_id   = 2; // 平台id
+    int64  register_time = 3; // 注册时间
+    int32  system_id     = 4; // 系统id，ios or android
+}
+
+// 用户在线数量
+message LOGOnlineUser {
+    uint32 game_pd       = 1; // 游戏server_pd
+    uint32 online_number = 2; // 在线人数
+}
+
+message LOGLogin {
+    uint32 login_pd      = 1; // 登入server_pd
+    uint32 platform_id   = 2; // 平台id
+    int64  register_time = 3; // 注册时间
+    int32  system_id     = 4; // 系统id，ios or android
+}
+
+// 用户登出
+message LOGLogout {
+    uint32 login_pd    = 1; // 登入server_pd
+    int64  login_time  = 2; // 上一次恢复粮草的时间
+    int64  logout_time = 3; // 上一次恢复粮草的时间
+}
+
+// 道具变更
+message LOGItemChange {
+    int32 item_id   = 1; // 道具id
+    int32 item_num  = 2; // 道具数量
+    int32 item_sum  = 3; // 道具数量
+    int32 main_type = 4; // 消耗大类 @EnItemChgMainType
+    int32 sub_type  = 5; // 消耗小类 @EnItemChgSubType
+}
+
+// 留存类型
+enum EnRetentionMainType {
+    EN_RMT_UNKNOWN      = 0; //
+    EN_RMT_LOTTERY      = 1; // 酒馆留存
+    EN_RMT_STORY_START  = 2; // 关卡留存
+    EN_RMT_STORY_FINISH = 3; // 关卡留存
+    EN_RMT_MISSION      = 4; // 任务留存
+    EN_RMT_MISSION_SUM  = 5; // 任务留存
+    EN_RMT_SIGNIN       = 6; // 签到留存
+    EN_RMT_FNUNLOCK     = 7; // 功能解锁留存
+    EN_RMT_PLAYER_LEVEL = 8; // 等级
+    EN_RMT_VIP_LEVEL    = 9; // 等级
+}
+
+// 留存类型
+message LOGRetention {
+    int32    main_type          = 1; // 留存大类 @EnRetentionMainType
+    int32    sub_type           = 2; // 留存小类
+    int32    user_num           = 3; // 用户数量
+    int32    user_sum           = 4; // 总的数量
+    repeated string custom_data = 5; // 自定义数据
+}
+
+message LOGGuideRetention {
+    repeated LOGRetention retentions = 1; // 新手引导留存
+}
+
+
+// 资源购买
+message LOGResourceBuy {
+    uint32 resource_id = 1; // 资源id
+    uint32 num         = 2; // 获得数量
+    uint32 buy_times   = 3; // 第几次购买
+    int32  price       = 4; // 消耗黄金数量
+}
+
+message LOGArenaCost {
+    uint32 arena_type                  = 1; // 购买挑战次数 or 重置挑战CD时间
+    int32  cost                        = 2; // 消耗黄金
+    uint32 before_challenge_free_times = 3; // 购买之前的免费次数
+    uint32 buy_challenge_times         = 4; // 购买多少次数
+}
+
+message LOGArenaAddRank {
+    uint32 player_level  = 1; // 玩家等级
+    uint32 arena_ranking = 2; // 玩家排名
+}
+
+message LOGLottery {
+    uint32 lottery_type            = 1; // 招募类型
+    uint32 lottery_silver_free_num = 2; // 免费次数
+    uint32 lottery_golden_free_num = 3; // 免费次数
+    uint32 cost_id                 = 4; // 消耗资源id
+    int32  cost_num                = 5; // 消耗资源数量
+    // repeated DReward rewards         = 6; // 获得奖品
+}
+
+message LOGMarketRefresh {
+    uint32 market_type   = 1; // 刷新集市类型
+    uint32 refresh_times = 2; // 今日已经刷新了多少次
+    uint32 cost_id       = 3; // 消耗资源id
+    int32  cost_num      = 4; // 消耗资源数量
+}
+
+message LOGMarketBuy {
+    uint32 market_type = 1; // 集市类型
+    uint32 good_id     = 2; // 商品id
+    uint32 item_id     = 3; // 获得物品id
+    uint32 item_num    = 4; // 获得物品数量
+    uint32 cost_id     = 5; // 消耗资源id
+    int32  cost_num    = 6; // 消耗资源数量
+}
+
+message LOGStory {
+    uint32 story_id               = 1; // 关卡id
+    uint32 start_times            = 2; // 总的开始次数
+    uint32 finish_times           = 3; // 总的完成次数
+    uint32 victory_times          = 4; // 总的胜利次数
+    uint32 before_available_times = 5; // 开始关卡之前剩余次数
+    uint32 after_available_times  = 6; // 完成关卡之后剩余次数 扫荡可能多次
+    uint32 stars                  = 7; // 完成关卡的星级 0 失败
+}
+
+message LOGOrderGenerate {
+    string order_id = 1; // 订单号
+}

@@ -78,5 +78,12 @@ endif()
 
 # =========== 3rd_party - libcopp ===========
 include("${PROJECT_3RD_PARTY_ROOT_DIR}/libcopp/libcopp.cmake")
+
+# =========== 3rd_party - redis ===========
+include("${PROJECT_3RD_PARTY_ROOT_DIR}/redis/redis.cmake")
+
+# =========== 3rd_party - protobuf ===========
+include("${PROJECT_3RD_PARTY_ROOT_DIR}/protobuf/protobuf.cmake")
+
 ## 导入所有工程项目
 add_project_recurse(${CMAKE_CURRENT_LIST_DIR})

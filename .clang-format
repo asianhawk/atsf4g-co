@@ -4,6 +4,7 @@ AccessModifierOffset: -4
 AlignEscapedNewlinesLeft: true
 AlignConsecutiveAssignments: true
 AlignConsecutiveDeclarations: true
+AlignTrailingComments: true
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortIfStatementsOnASingleLine: true
 AlwaysBreakTemplateDeclarations: true

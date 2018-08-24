@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+// 后台协议常量定义
+
+package hello.err;
+
+enum EnSysErrorType {
+    EN_SUCCESS = 0;
+
+    EN_SYS_UNKNOWN = -1;
+
+
+    EN_SYS_PARAM       = -1000001;
+    EN_SYS_INIT        = -1000002;
+    EN_SYS_MALLOC      = -1000003;
+    EN_SYS_NOTFOUND    = -1000004;
+    EN_SYS_BUFF_EXTEND = -1000005;
+    EN_SYS_BUSY        = -1000006;
+    EN_SYS_TIMEOUT     = -1000007;
+    EN_SYS_PACK        = -1000008;
+    EN_SYS_UNPACK      = -1000009;
+
+    EN_SYS_RPC_CALL         = -1000021; // 通用调用错误
+    EN_SYS_RPC_NO_TASK      = -1000022; // 不在协程任务中
+    EN_SYS_RPC_SEND_FAILED  = -1000023; // 发送消息失败
+    EN_SYS_RPC_TASK_EXITING = -1000024; // 协程任务正在退出
+    EN_SYS_SIGN_VERIFY      = -1000031; // 签名校检失败
+
+    EN_ROUTER_NOT_FOUND       = -10000081; // 路由信息找不到
+    EN_ROUTER_TTL_EXTEND      = -10000082; // TTL超出限制
+    EN_ROUTER_NOT_IN_SERVER   = -10000083; // 不在任何节点上
+    EN_ROUTER_TYPE_INVALID    = -10000084; // 路由数据类型未被注册
+    EN_ROUTER_TYPE_CONFLICT   = -10000085; // 路由数据类型已经被注册
+    EN_ROUTER_NOT_WRITABLE    = -10000086; // 不可写(不是实体)
+    EN_ROUTER_IN_OTHER_SERVER = -10000087; // 在其他节点上
+    EN_ROUTER_TRANSFER        = -10000088; // 转移失败
+
+    EN_DB_RECORD_NOT_FOUND = -1000101;
+    EN_DB_SEND_FAILED      = -1000102;
+    EN_DB_OLD_VERSION      = -1000103; // CAS数据已经过期
+    EN_DB_REPLY_ERROR      = -1000104; // 数据库返回错误信息
+    EN_DB_KEY_EXISTS       = -1000105; // key已经存在
+
+    EN_MSG_PACK_NOT_ENOUGH = -1000201;
+    EN_MSG_PARSE_FAIL      = -1000202;
+
+    EN_PLAYER_KICKOUT = -1001001; // 踢出用户失败
+}
